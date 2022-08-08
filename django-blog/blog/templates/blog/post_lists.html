@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class='row'>
+        <div class='col-9'>
+
+            {% if category %}
+                <h1>{{ category }}
+                    <i>-category-</i>
+                </h1>
+            {% elif tag %}
+                <h1>{{ tag }}
+                    <i>-tag-</i>
+                </h1>
+                <hr>
+            {% elif query %}
+                <h1>"{{ query }}" search results "{{ models.count }}"
+                </h1>
+                <hr>
+            {% endif %}
+
+            {% for post in models %}
+
+                {% if post.is_published or user.is_authenticated %}
+                    {% if not post.is_published %}
+                        <span class="badge bg-warning text-dark">edit...</span>
+                    {% elif post.is_published %}
+                        <span class="badge bg-success">release</span>
+                    {% endif %}
+
+                    <h1>
+                        {{ post.title }}
+                    </h1>
+                    <p>
+                        {{ post.content|truncatechars:30 }}
+                    </p>
+                    <p>
+                        {{ post.created_at }}
+                        |
+                        {{ post.updated_at }}
+                    </p>
+
+                    <p>
+                        <a href="{% url 'post-detail' post.pk %}">detail...</a>
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class='col-3'>
+            {% include 'blog/snippets/sidebar.html' %}
+        </div>
+
+    </div>
+
+{% endblock content %}

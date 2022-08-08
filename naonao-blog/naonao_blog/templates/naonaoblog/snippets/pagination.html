@@ -1,0 +1,21 @@
+{% load naonao_blog %}
+
+{% if page_obj.has_previous %}
+    {% comment %} <a href="?page={{ page_obj.previous_page_number }}">forward</a> {% endcomment %}
+    <a href="?{% replace request 'page' page_obj.previous_page_number %}">forward</a> 
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+        <span>{{ num }}</span>
+    {% else %}
+        {% comment %} <a href="?page={{ num }}">{{ num }}</a> {% endcomment %}
+        <a href="?{% replace request 'page' num %}">{{ num }}</a> 
+    {% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+    {% comment %} <a href="?page={{ page_obj.next_page_number }}">next</a> {% endcomment %}
+    <a href="?{% replace request 'page' page_obj.next_page_number %}">next</a> 
+    
+{% endif %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">({{ article.pk }}){{ article.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ article.deadline }}</h6>
+            <p class="card-text">{{ article.text }}</p>
+            <a href="{% url 'list' %}" class="btn btn-primary">Go home</a>
+            <a href="{% url 'delete' pk=article.pk %}" class="btn btn-danger">delete</a>
+            <a href="{% url 'update' pk=article.pk %}" class="btn btn-info">update</a>
+
+        </div>
+    </div>
+
+{% endblock content %}

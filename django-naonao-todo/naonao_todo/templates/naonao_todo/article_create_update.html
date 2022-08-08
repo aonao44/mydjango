@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="p-3 mt-3 mb-3">
+        {% if 'create' in request.path %}
+            <h2>create now!</h2>
+        {% elif 'update' in request.path %}
+            <h2>update now.{{ article.pk }}</h2>
+        {% endif %}
+    </div>
+{% endblock header %}
+
+{% block content %}
+
+    <form action="" method='POST'>
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <div class="p-3 mt-10 mb-3">
+            <div class="d-grid gap-2 col-6 mx-left">
+                <input class='btn-success' type="submit" value='send'>
+            </div>
+        </div>
+    </form>
+
+{% endblock content %}

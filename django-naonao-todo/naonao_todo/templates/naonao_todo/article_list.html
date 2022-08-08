@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="p-3 mb-5"></div>
+
+{% endblock header %}
+
+{% block content %}
+
+    <div class="shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'create' %}" class="btn btn-success me-3">create</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">title</th>
+                    <th scope="col">deadline</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'detail' pk=article.pk %}">
+                                {{ article.title }}
+                            </a>
+                        </td>
+                        <td>{{ article.deadline }}</td>
+                        {% if user.is_authenticated %}
+                            <td>
+                                <a href="{% url 'delete' pk=article.pk %}">
+                                    delete
+                                </a>
+                                <a href="{% url 'update' pk=article.pk %}">
+                                    update
+                                </a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

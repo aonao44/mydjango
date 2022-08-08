@@ -1,0 +1,9 @@
+p a {
+    color: brown;
+    text-decoration: none;
+}
+
+div.category > ul > li a{
+    color: #212529;
+    text-decoration: none;
+}

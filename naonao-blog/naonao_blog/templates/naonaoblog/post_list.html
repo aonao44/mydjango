@@ -1,0 +1,48 @@
+{% extends 'naonaoblog/base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-9">
+            {% if category %}
+                <h1>category...{{ category }}</h1>
+                <hr>
+            {% elif tag %}
+                <h1>#{{ tag }}</h1>
+                <hr>
+            {% elif query %}
+                <h1>"{{ query }}"... ({{ post_count }})</h1>
+                <hr>
+            {% endif %}
+
+            {% for post in posts %}
+
+                {% if post.is_published or user.is_superuser %}
+                    {% if not post.is_published %}
+                        <span class="badge bg-warning text-dark">Not release</span>
+                    {% endif %}
+
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" width='300' heiget="2">
+                        <h3>{{ post.image }}</h3>
+                    {% endif %}
+
+                    <h1>
+                        <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                    </h1>
+                    <p>{{ post.created_at }}|{{ post.updated_at }}</p>
+
+                {% endif %}
+            {% endfor %}
+
+            {% include 'naonaoblog/snippets/pagination.html' %}
+
+        </div>
+
+        <div class="col-3">
+            {% include 'naonaoblog/snippets/sidebar.html' %}
+        </div>
+
+    </div>
+
+{% endblock content %}

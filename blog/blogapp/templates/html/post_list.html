@@ -1,0 +1,23 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+
+    {% for post in posts %}
+
+        {% if post.is_published or user.is_superuser %}
+            {% if not post.is_published %}
+                <span class="badge bg-warning text-dark">draft</span>
+            {% endif %}
+
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content | truncatechars:20 }}</p>
+            <p>{{ post.created_at }}
+                |
+                {{ post.updated_at }}</p>
+        {% else %}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock content %}
